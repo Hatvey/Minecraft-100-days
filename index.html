@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minecraft 100 Days Challenge</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Minecraft 100 Days Challenge</h1>
+  </header>
+
+  <section class="day-challenges">
+    <h2>Daily Goals</h2>
+    <ol class="checklist">
+      <li><label><input type="checkbox" /> Day 1: Gather 20 stacks of cobblestone</label></li>
+      <li><label><input type="checkbox" /> Day 2: Mine 7 stacks of iron</label></li>
+      <li><label><input type="checkbox" /> Day 3: Mine 5 stacks of coal</label></li>
+      <li><label><input type="checkbox" /> Day 4: Gather 5 stacks of gold and redstone</label></li>
+      <li><label><input type="checkbox" /> Day 5: Collect 2 stacks of diamonds</label></li>
+      <li><label><input type="checkbox" /> Day 6: Build iron farm</label></li>
+      <li><label><input type="checkbox" /> Day 7: Create a full set of iron armor</label></li>
+      <li><label><input type="checkbox" /> Day 8: Tame a dog and a cat</label></li>
+      <li><label><input type="checkbox" /> Day 9: Kill chin</label></li>
+      <li><label><input type="checkbox" /> Day 10: Kill dragon</label></li>
+      <!-- Skipping intermediate items for brevity -->
+      <li><label><input type="checkbox" /> Day 100: PVP!!!!!!!!!!</label></li>
+    </ol>
+  </section>
+
+  <section class="build-section">
+    <h2>Featured Builds</h2>
+    <h3>Trading Hall + Iron Farm Combo</h3>
+    <ul>
+      <li><label><input type="checkbox"> x2100 Stone Brick (Approx.)</label></li>
+      <li><label><input type="checkbox"> x1148 White Stained Glass</label></li>
+      <li><label><input type="checkbox"> x559 Trapdoors</label></li>
+      <li><label><input type="checkbox"> x504 Stripped Spruce Logs</label></li>
+      <li><label><input type="checkbox"> x400 Cobblestones (Approx.)</label></li>
+      <li><label><input type="checkbox"> x314 Any Leaves</label></li>
+      <li><label><input type="checkbox"> x296 Spruce Stairs</label></li>
+      <li><label><input type="checkbox"> x284 Stone Brick Slabs</label></li>
+      <li><label><input type="checkbox"> x221 Lanterns</label></li>
+      <li><label><input type="checkbox"> x150 Stones (Approx.)</label></li>
+      <li><label><input type="checkbox"> x144 Light Gray Carpets</label></li>
+      <li><label><input type="checkbox"> x139 Stone Brick Stairs</label></li>
+      <li><label><input type="checkbox"> x112 Beds</label></li>
+      <li><label><input type="checkbox"> x112 Villagers (Start with 2, then breed)</label></li>
+      <li><label><input type="checkbox"> x112 Workstations (e.g. Lectern, Composter)</label></li>
+      <li><label><input type="checkbox"> x70 Stone Slabs (Approx.)</label></li>
+      <li><label><input type="checkbox"> x60 Cobblestone Slabs (Approx.)</label></li>
+      <li><label><input type="checkbox"> x48 Chests</label></li>
+      <li><label><input type="checkbox"> x20 Stone Stairs (Approx.)</label></li>
+      <li><label><input type="checkbox"> x20 Cobblestone Stairs (Approx.)</label></li>
+      <li><label><input type="checkbox"> x12 Hoppers</label></li>
+      <li><label><input type="checkbox"> x12 Sign Boards</label></li>
+      <li><label><input type="checkbox"> x12 Spruce Fence Gates</label></li>
+      <li><label><input type="checkbox"> x12 Warped Fence Gates</label></li>
+      <li><label><input type="checkbox"> x4 Lava Buckets</label></li>
+      <li><label><input type="checkbox"> x4 Spruce Doors</label></li>
+      <li><label><input type="checkbox"> x2 Water Buckets</label></li>
+    </ul>
+    <h3>Useful Tutorials</h3>
+    <ul>
+      <li><a href="https://www.youtube.com/watch?v=aM5-gs23wc8" target="_blank">Automatic Villager Breeder & Transporter</a></li>
+      <li><a href="https://www.youtube.com/watch?v=Isj5hRxgc2s" target="_blank">Gold Farm</a></li>
+    </ul>
+  </section>
+
+  <section class="roulette">
+    <h2>Challenge & Player Roulette</h2>
+    <p>Enter player names and spin for random challenge assignments!</p>
+    <textarea id="playerNames" rows="3" cols="40" placeholder="Enter player names separated by commas"></textarea><br>
+    <button onclick="assignRandomChallenge()">Spin Roulette</button>
+    <p id="roulette-result"></p>
+  </section>
+
+  <script>
+    const challenges = [...document.querySelectorAll(".checklist li")].map(li => li.textContent);
+
+    function assignRandomChallenge() {
+      const input = document.getElementById("playerNames").value.trim();
+      if (!input) return alert("Please enter player names.");
+
+      const players = input.split(",").map(p => p.trim()).filter(p => p);
+      const player = players[Math.floor(Math.random() * players.length)];
+      const challenge = challenges[Math.floor(Math.random() * challenges.length)];
+
+      document.getElementById("roulette-result").textContent = `${player} will do: ${challenge}`;
+    }
+  </script>
+
+</body>
+</html>
