@@ -1,83 +1,65 @@
-const challenges = [
-  {
-    title: "Goal 1",
-    goals: [
-      "Collect 20 stacks of cobblestone",
-      "Gather 2 stacks of coal",
-      "Mine 3 stacks of iron",
-      "Collect 2 stacks of gold"
-    ]
-  },
-  {
-    title: "Goal 2",
-    goals: [
-      "Craft full iron armor",
-      "Build a stone sword and shield",
-      "Make 10 torches",
-      "Create a safe shelter"
-    ]
-  },
-  {
-    title: "Goal 3",
-    goals: [
-      "Build a wheat farm",
-      "Fence an area for animals",
-      "Collect 10 seeds and plant them",
-      "Tame one animal"
-    ]
-  },
-  {
-    title: "trading iron farm",
-    goals: [
-      "Collect 2100 stone bricks & 1148 glass",
-      "Gather 112 beds & 112 villagers",
-      "Prepare 559 trapdoors, 504 logs, 12 hoppers",
-      "Assemble and test the full build"
-    ]
-  }
-];
 
-const challengesContainer = document.getElementById("challengesContainer");
+const daysContainer = document.getElementById("daysContainer");
 
-challenges.forEach((challenge, index) => {
-  const challengeDiv = document.createElement("div");
-  challengeDiv.className = "challenge";
+function updateProgress() {
+  const dayBlocks = document.querySelectorAll(".day-block");
+  let totalChecked = 0;
+  let totalBoxes = 0;
 
-  const title = document.createElement("h2");
-  title.textContent = challenge.title;
-  challengeDiv.appendChild(title);
+  dayBlocks.forEach(block => {
+    const checkboxes = block.querySelectorAll('input[type="checkbox"]');
+    const checked = block.querySelectorAll('input[type="checkbox"]:checked');
+    const percent = (checked.length / checkboxes.length) * 100;
+    totalChecked += checked.length;
+    totalBoxes += checkboxes.length;
+
+    const fill = block.querySelector(".day-progress-fill");
+    fill.style.width = `${percent}%`;
+  });
+
+  const overall = (totalChecked / totalBoxes) * 100;
+  document.getElementById("progressFill").style.width = `${overall}%`;
+}
+
+const goalTexts = Array.from({ length: 100 }, (_, i) => `Goal ${i + 1}`);
+
+for (let day = 1; day <= 10; day++) {
+  const start = (day - 1) * 10;
+  const dayGoals = goalTexts.slice(start, start + 10);
+  const dayDiv = document.createElement("div");
+  dayDiv.className = "day-block";
+
+  const h3 = document.createElement("h3");
+  h3.textContent = `Day ${day}`;
+  dayDiv.appendChild(h3);
 
   const progressBar = document.createElement("div");
-  progressBar.className = "progress-bar";
-  progressBar.innerHTML = `<div class="progress-fill" id="progress-${index}"></div>`;
-  challengeDiv.appendChild(progressBar);
+  progressBar.className = "day-progress-bar";
+  progressBar.innerHTML = `<div class="day-progress-fill"></div>`;
+  dayDiv.appendChild(progressBar);
 
   const ul = document.createElement("ul");
-  challenge.goals.forEach(goal => {
+  dayGoals.forEach(goal => {
     const li = document.createElement("li");
     li.innerHTML = `<label><input type="checkbox" onchange="updateProgress()"> ${goal}</label>`;
     ul.appendChild(li);
   });
 
-  challengeDiv.appendChild(ul);
-  challengesContainer.appendChild(challengeDiv);
-});
+  dayDiv.appendChild(ul);
+  daysContainer.appendChild(dayDiv);
+}
 
-function updateProgress() {
-  let totalGoals = 0;
-  let totalChecked = 0;
+function runRoulette() {
+  const players = document.getElementById("playerNames").value.trim().split("\n").filter(p => p);
+  const challenges = document.getElementById("challenges").value.trim().split("\n").filter(c => c);
 
-  challenges.forEach((_, index) => {
-    const challengeDiv = document.querySelectorAll(".challenge")[index];
-    const checkboxes = challengeDiv.querySelectorAll('input[type="checkbox"]');
-    const checked = [...checkboxes].filter(cb => cb.checked).length;
-    const percent = (checked / checkboxes.length) * 100;
-    document.getElementById(`progress-${index}`).style.width = percent + "%";
+  if (players.length === 0 || challenges.length === 0) {
+    alert("Please enter player names and challenges.");
+    return;
+  }
 
-    totalGoals += checkboxes.length;
-    totalChecked += checked;
-  });
+  const player = players[Math.floor(Math.random() * players.length)];
+  const challenge = challenges[Math.floor(Math.random() * challenges.length)];
 
-  const overallPercent = (totalChecked / totalGoals) * 100;
-  document.getElementById("mainProgress").style.width = overallPercent + "%";
+  document.getElementById("rouletteResult").textContent = `${player} will do: ${challenge}`;
 }
