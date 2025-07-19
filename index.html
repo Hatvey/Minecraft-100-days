@@ -2,34 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Minecraft 100 Days Challenge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Minecraft Challenge Tracker</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
-    <h1>Minecraft 100 Days Challenge</h1>
+    <h1>Minecraft Challenge Tracker</h1>
   </header>
 
   <section class="progress-container">
     <h2>Overall Progress</h2>
     <div class="progress-bar">
-      <div class="progress-fill" id="progressFill"></div>
+      <div class="progress-fill" id="mainProgress"></div>
     </div>
   </section>
 
-  <section class="day-challenges">
-    <h2>Daily Goals (10 per day)</h2>
-    <div id="daysContainer"></div>
-  </section>
-
-  <section class="roulette-container">
-    <h2>Challenge Roulette</h2>
-    <textarea id="playerNames" rows="3" cols="30" placeholder="Enter player names..."></textarea>
-    <textarea id="challenges" rows="5" cols="30" placeholder="Enter challenges..."></textarea><br>
-    <button onclick="runRoulette()">Pick Player & Challenge</button>
-    <div id="rouletteResult"></div>
-  </section>
+  <section class="challenges" id="challengesContainer"></section>
 
   <script src="script.js"></script>
 </body>
